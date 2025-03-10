@@ -29,4 +29,4 @@ class CrossEntropy(BaseLossFunction):
         dH[class_id] = -1/(y_hat[class_id]+epsilon)
         return dH
     
-LOSSES = {"mean_squarred_error": MSE, "cross_entropy":CrossEntropy}
+LOSSES = {"mean_squared_error": MSE, "cross_entropy":CrossEntropy}
