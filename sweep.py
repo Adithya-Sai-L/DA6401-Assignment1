@@ -14,7 +14,6 @@ sweep_config['metric'] = metric
     
 # Define the hyperparameters (parameters) dictionary
 parameters_dict = {
-    'project'
     'epochs': {'values': [5, 10]},
     'num_layers': {'values': [3, 4, 5]},
     'hidden_size': {'values': [32, 64, 128]},
@@ -28,9 +27,10 @@ parameters_dict = {
     'momentum': {'values': [0.5, 0.9, .999]},
     'beta': {'values': [0.5, 0.9, .999]},
     'beta1': {'values': [0.5, 0.9, .999]},
-    'beta2': {'values': [0.5, 0.9, .999]},
+    'beta2': {'values': [0.5, 0.9, .999]}, 
     'epsilon': {'values': [0.000001, 0.0000001]},
 }
+
 
 sweep_config['parameters'] = parameters_dict
 sweep_id= wandb.sweep(sweep_config, project="Programming_Assignment_1")
