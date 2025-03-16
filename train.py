@@ -49,7 +49,13 @@ def main():
     wandb.init(project=args.wandb_project, entity=args.wandb_entity, config=vars(args))
     config = wandb.config
 
-    run_name = f"hl_{config.num_layers}_hs_{config.hidden_size}_bs_{config.batch_size}_ep_{config.epochs}_ac_{config.activation}_o_{config.optimizer}_lr_{config.learning_rate}_wd_{config.weight_decay}_wi_{config.weight_init}_dataset_{config.dataset}"
+    run_name = f"dataset_{config.dataset}_hl_{config.num_layers}_hs_{config.hidden_size}_lr_{config.learning_rate}_wi_{config.weight_init}_wd_{config.weight_decay}_ep_{config.epochs}_bs_{config.batch_size}_ac_{config.activation}_l_{config.loss}_o_{config.optimizer}"
+    if config.optimizer in ["momentum", "nag"]:
+        run_name += f"_m_{config.momentum}"
+    elif config.optimizer == "rmsprop":
+        run_name += f"_b_{config.beta}_eps_{config.epsilon}"
+    elif config.optimizer in ["adam", "nadam"]:
+        run_name += f"_b1_{config.beta1}_b2_{config.beta2}_eps_{config.epsilon}"
     wandb.run.name = run_name
     wandb.run.save()
 
@@ -63,7 +69,7 @@ def main():
 
     X_train = (train_images.astype(np.float32)-127)/128.
     Y_train = one_hot_encoding(train_labels)
-    X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size=0.1, random_state=42)
+    X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size=0.1, random_state=config.seed)
     
 
     model.train(X_train, Y_train, X_val, Y_val, epochs=config.epochs)
@@ -75,7 +81,7 @@ def main():
         else:
             incor += 1
 
-    print("accuracy:", cor/(cor+incor))
+    print("Final Train accuracy:", cor/(cor+incor))
 
 if __name__ == '__main__':
     main()
