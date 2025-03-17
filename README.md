@@ -87,5 +87,32 @@ Observations:
 
 # Question 7
 
+[test.py](test.py) \
 **Usage:** \
 ```python test.py -w path_to_weights.npy -d dataset -nhl num_layers -sz hidden_size -a activation ```
+
+# Question 8
+
+My sweep config included mean_squarred_error as a hyperparameter. Hence another sweep was conducted and the correlation between the choice of loss function and best_validation_accuracy was reversed. Therefore, in my experiments, there does NOT seem to be a clear winner for the choice of loss function. Since the target is a categorical distribution, the output activation being fixed to softmax seems to be sufficient to train the network on both mean_squarred_error and cross_entropy losses.
+
+# Question 9
+
+https://github.com/da24s002/DA6401_Assignment_1/tree/master
+
+# Question 10
+
+Hyperparameter configuration
+1: {"epochs":10, "batch_size":16, "loss":'cross_entropy', "learning_rate":0.0001, "optimizer":'momentum', "momentum":0.9, "weight_decay":0.0005, "weight_init":'Xavier', "num_layers":3, "hidden_size":128, "activation":'ReLU'}
+Training Accuracy: 98.21%
+Best Validation Accuracy: 96.75%
+Test Accuracy: 97.04%
+
+2: {"epochs":10, "batch_size":32, "loss":'mean_squared_error', "learning_rate":0.0001, "optimizer":'nag', "momentum":0.9, "weight_decay":0.0005, "weight_init":'Xavier', "num_layers":4, "hidden_size":128, "activation":'tanh'}
+Training Accuracy: 98.10%
+Best Validation Accuracy: 96.93%
+Test Accuracy: 96.93%
+
+3: {"epochs":10, "batch_size":64, "loss":'cross_entropy', "learning_rate":0.0001, "optimizer":'nag', "momentum":0.9, "weight_decay":0.0, "weight_init":'Xavier', "num_layers":5, "hidden_size":128, "activation":'ReLU'}
+Training Accuracy: 97.38%
+Best Validation Accuracy: 96.37%
+Test Accuracy: 96.13%
