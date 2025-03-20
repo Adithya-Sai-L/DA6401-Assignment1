@@ -89,7 +89,7 @@ class NeuralNetwork:
             if val_accuracy > best_val_accuracy:
                 best_val_accuracy = val_accuracy
                 params = {"weights": self.weights, "biases": self.biases}
-                np.save(f"models/{self.args.dataset}/hl_{self.args.num_layers}_hs_{self.args.hidden_size}_bs_{self.args.batch_size}_ep_{self.args.epochs}_ac_{self.args.activation}_o_{self.args.optimizer}_lr_{self.args.learning_rate}_wd_{self.args.weight_decay}_wi_{self.args.weight_init}_loss_{self.args.loss}.npy", params)
+                np.save(f"ckpts/{self.args.dataset}/hl_{self.args.num_layers}_hs_{self.args.hidden_size}_bs_{self.args.batch_size}_ep_{self.args.epochs}_ac_{self.args.activation}_o_{self.args.optimizer}_lr_{self.args.learning_rate}_wd_{self.args.weight_decay}_wi_{self.args.weight_init}_loss_{self.args.loss}.npy", params)
             wandb.log({"train_loss": total_loss/len(train_images), "val_loss": val_loss/len(val_images), "train_accuracy": train_correct/(train_correct+train_incorrect), "val_accuracy": val_correct/(val_correct+val_incorrect)})
             print(f"Epoch{i} val loss: {val_loss/len(val_images)}")
         wandb.log({"best_val_accuracy": best_val_accuracy})
